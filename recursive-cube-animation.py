@@ -75,33 +75,33 @@ def animate_recursive_transform(obj, transform_func, frame_start, frame_end, cur
     for child in obj.children:
         animate_recursive_transform(child, transform_func, frame_start, frame_end, current_depth + 1)
 
-# Main script execution
-if __name__ == "__main__":
-    # Disable undo to save memory during operation
-    bpy.context.preferences.edit.use_global_undo = False
 
-    original_name = 'Cube'
-    parent_mesh = ensure_original_exists(original_name)
+    
+# Disable undo to save memory during operation
+bpy.context.preferences.edit.use_global_undo = False
 
-    cleanup_children_except_original(original_name)
+original_name = 'Cube'
+parent_mesh = ensure_original_exists(original_name)
 
-    create_recursive_children(parent_mesh, 3, 7, 0.5)
+cleanup_children_except_original(original_name)
 
-    # Animate transformations
-    frame_start = 1
-    frame_end = 100
+create_recursive_children(parent_mesh, 3, 7, 0.5)
 
-    # Define the color change function with pre-set colors
-    start_color = (1, 0, 0, 1)  # Red in RGBA
-    end_color = (0, 0, 1, 1)  # Blue in RGBA
-    color_change_func = partial(change_color, start_with_color=start_color, end_with_color=end_color)
+# Animate transformations
+frame_start = 1
+frame_end = 100
 
-    animate_recursive_transform(parent_mesh, color_change_func, frame_start, frame_end)
+# Define the color change function with pre-set colors
+start_color = (1, 0, 0, 1)  # Red in RGBA
+end_color = (0, 0, 1, 1)  # Blue in RGBA
+color_change_func = partial(change_color, start_with_color=start_color, end_with_color=end_color)
 
-    # Define the spin function
-    spin_func = partial(spin_cube)
+animate_recursive_transform(parent_mesh, color_change_func, frame_start, frame_end)
 
-    animate_recursive_transform(parent_mesh, spin_func, frame_start, frame_end)
+# Define the spin function
+spin_func = partial(spin_cube)
 
-    # Re-enable undo after operations are completed
-    bpy.context.preferences.edit.use_global_undo = True
+animate_recursive_transform(parent_mesh, spin_func, frame_start, frame_end)
+
+# Re-enable undo after operations are completed
+bpy.context.preferences.edit.use_global_undo = True
