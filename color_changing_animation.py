@@ -45,7 +45,7 @@ cube = bpy.data.objects['Cube']
 
 # Define colors and frames for the animation
 color_changes = [(1, 0, 0, 1),  # Red
-                 (0, 1, 0, 0)]  # Green
+                 (0, 1, 0, 1)]  # Green
 key_frames = [1, 250]
 
 # Call the function with the Cube object, color changes, and key frames
