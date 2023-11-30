@@ -1,8 +1,7 @@
 # blender-scripts
 
-![Sample Gif](https://github.com/guyettenathanj/blender-scripts/blob/main/images/sample.gif)
-
 [Recursive Cubes Spinning](https://github.com/guyettenathanj/blender-scripts/blob/main/recursive-cube-animation.py)
+![Sample Gif](https://github.com/guyettenathanj/blender-scripts/blob/main/images/recursive%20spinning%20cubes.gif)
 
 Makes recursively smaller and smaller cubes, and makes them all spin around their parent object.
 
