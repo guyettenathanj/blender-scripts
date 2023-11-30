@@ -4,7 +4,7 @@
 ![Sample Gif](https://github.com/guyettenathanj/blender-scripts/blob/main/images/recursive%20spinning%20cubes.gif)
 Makes recursively smaller and smaller cubes, and makes them all spin around their parent object.
 
-[Slowly transition between colors](https://github.com/guyettenathanj/blender-scripts/blob/main/color_changing_animation.py)
+[Slowly transition between colors](https://github.com/guyettenathanj/blender-scripts/blob/main/color_changing_animation.py)\
 ![Gif](https://github.com/guyettenathanj/blender-scripts/blob/main/images/color%20transition.gif)
 
 
