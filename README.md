@@ -10,7 +10,7 @@ Makes recursively smaller and smaller cubes, and makes them all spin around thei
 
 Adds keyframes to transition from one rgba color to another.
 
-[Extrude randome face from sphere](https://github.com/guyettenathanj/blender-scripts/blob/main/extrude_random_faces_from_sphere.py)
+[Extrude random face from sphere](https://github.com/guyettenathanj/blender-scripts/blob/main/extrude_random_faces_from_sphere.py)
 <br>
 ![Gif](https://github.com/guyettenathanj/blender-scripts/blob/main/images/extrude.gif)
 
