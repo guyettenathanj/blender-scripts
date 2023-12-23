@@ -1,5 +1,21 @@
 # code goes here, like how to easily select rings and segments...
 
+def cleanup_mesh_objects():
+    # Switch to object mode
+    bpy.ops.object.mode_set(mode='OBJECT')
+
+    # Deselect all objects
+    bpy.ops.object.select_all(action='DESELECT')
+
+    # Iterate over all objects in the scene
+    for obj in bpy.data.objects:
+        # Check if the object is a mesh
+        if obj.type == 'MESH':
+            # Select the mesh object
+            obj.select_set(True)
+            # Delete the selected object
+            bpy.ops.object.delete() 
+
 def create_uv_sphere(location, radius, segments, rings):
     """
     Creates a UV sphere at a given location with specified radius, segments, and rings.
@@ -50,3 +66,21 @@ def select_poles_of_uv_sphere(sphere):
 
     # Update the mesh
     bmesh.update_edit_mesh(sphere.data)
+
+
+
+
+# Reset the scene using cleanup function/s
+cleanup_mesh_objects()
+
+# Parameters for the sphere
+location = (0, 0, 0)
+radius = 1
+segments = 200  # Adjust this value for horizontal subdivisions
+rings = 200    # Adjust this value for vertical subdivisions
+
+# Create a UV sphere
+created_sphere = create_uv_sphere(location, radius, segments, rings)
+
+# Get the poles in edit mode... 
+select_poles_of_uv_sphere(created_sphere)
