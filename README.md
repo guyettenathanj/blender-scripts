@@ -16,3 +16,9 @@ Adds keyframes to transition from one rgba color to another.
 ![Gif](https://github.com/guyettenathanj/blender-scripts/blob/main/images/extrude.gif)
 
 Extrudes a random quad from a uv sphere. Currently it is possible that an extruded quad gets extruded again. Kind of a neat effect, maybe I'll add a control to flip between not extruding from child quads.
+
+
+[Randomly color faces of mesh object](https://github.com/guyettenathanj/blender-scripts/blob/main/color_faces_randomly.py)
+![Gif](https://github.com/guyettenathanj/blender-scripts/blob/main/images/random%20color%20sphere.gif)
+<br>
+Randomly colors faces of mesh object
