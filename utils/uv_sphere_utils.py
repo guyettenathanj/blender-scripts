@@ -1,21 +1,33 @@
 import bpy
 import bmesh
 
-def cleanup_mesh_objects():
-    # Switch to object mode
-    bpy.ops.object.mode_set(mode='OBJECT')
 
-    # Deselect all objects
-    bpy.ops.object.select_all(action='DESELECT')
+def cleanup_mesh_objects():
+    """
+    Deletes all mesh objects in the current scene.
+    """
+    # Switch to object mode
+    if bpy.context.active_object and bpy.context.active_object.mode != 'OBJECT':
+        bpy.ops.object.mode_set(mode='OBJECT')
 
     # Iterate over all objects in the scene
-    for obj in bpy.data.objects:
-        # Check if the object is a mesh
-        if obj.type == 'MESH':
-            # Select the mesh object
-            obj.select_set(True)
-            # Delete the selected object
-            bpy.ops.object.delete() 
+    meshes_to_delete = [obj for obj in bpy.data.objects if obj.type == 'MESH']
+
+    # Check if there are any mesh objects to delete
+    if meshes_to_delete:
+        # Deselect all objects
+        bpy.ops.object.select_all(action='DESELECT')
+
+        # Select mesh objects
+        for mesh in meshes_to_delete:
+            mesh.select_set(True)
+
+        # Delete the selected objects
+        bpy.ops.object.delete() 
+    else:
+        print("No mesh objects found to delete.")
+        
+        
 
 def create_uv_sphere(location, radius, segments, rings):
     """
@@ -77,8 +89,8 @@ cleanup_mesh_objects()
 # Parameters for the sphere
 location = (0, 0, 0)
 radius = 1
-segments = 200  # Adjust this value for horizontal subdivisions
-rings = 200    # Adjust this value for vertical subdivisions
+segments = 20  # Adjust this value for horizontal subdivisions
+rings = 5    # Adjust this value for vertical subdivisions
 
 # Create a UV sphere
 created_sphere = create_uv_sphere(location, radius, segments, rings)
