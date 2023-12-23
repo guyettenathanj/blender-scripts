@@ -44,6 +44,7 @@ def create_uv_sphere(location, radius, segments, rings):
 def select_poles_of_uv_sphere(sphere):
     """
     Selects the top and bottom vertices (poles) of a UV sphere. and leaves it in edit mode.
+    This currently ONLY works if the sphere hasn't been rotated and is lined up perfectly.
 
     :param sphere: The UV sphere object to modify. Must be of type 'MESH'.
     """
