@@ -22,4 +22,5 @@ Extrudes a random quad from a uv sphere. Currently it is possible that an extrud
 <br>
 <br>
 ![Gif](https://github.com/guyettenathanj/blender-scripts/blob/main/images/random%20color%20sphere.gif)
+<br>
 Randomly colors faces of mesh object
