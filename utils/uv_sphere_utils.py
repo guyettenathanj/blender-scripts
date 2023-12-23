@@ -1,5 +1,17 @@
 # code goes here, like how to easily select rings and segments...
 
+def create_uv_sphere(location, radius, segments, rings):
+    """
+    Creates a UV sphere at a given location with specified radius, segments, and rings.
+    
+    :param location: Tuple specifying the location of the sphere.
+    :param radius: Radius of the sphere.
+    :param segments: Number of segments (longitude).
+    :param rings: Number of rings (latitude).
+    """
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=radius, segments=segments, ring_count=rings, location=location)
+    return bpy.context.active_object
+
 def select_poles_of_uv_sphere(sphere):
     """
     Selects the top and bottom vertices (poles) of a UV sphere. and leaves it in edit mode.
