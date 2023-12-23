@@ -1,4 +1,5 @@
-# code goes here, like how to easily select rings and segments...
+import bpy
+import bmesh
 
 def cleanup_mesh_objects():
     # Switch to object mode
