@@ -20,5 +20,6 @@ Extrudes a random quad from a uv sphere. Currently it is possible that an extrud
 
 [Randomly color faces of mesh object](https://github.com/guyettenathanj/blender-scripts/blob/main/color_faces_randomly.py)
 <br>
+<br>
 ![Gif](https://github.com/guyettenathanj/blender-scripts/blob/main/images/random%20color%20sphere.gif)
 Randomly colors faces of mesh object
