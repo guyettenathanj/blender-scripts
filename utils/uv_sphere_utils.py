@@ -2,7 +2,7 @@
 
 def select_poles_of_uv_sphere(sphere):
     """
-    Selects the top and bottom vertices (poles) of a UV sphere.
+    Selects the top and bottom vertices (poles) of a UV sphere. and leaves it in edit mode.
 
     :param sphere: The UV sphere object to modify. Must be of type 'MESH'.
     """
