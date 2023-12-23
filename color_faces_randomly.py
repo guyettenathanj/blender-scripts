@@ -1,6 +1,22 @@
 import bpy
 import random
 
+def cleanup_mesh_objects():
+    # Switch to object mode
+    bpy.ops.object.mode_set(mode='OBJECT')
+
+    # Deselect all objects
+    bpy.ops.object.select_all(action='DESELECT')
+
+    # Iterate over all objects in the scene
+    for obj in bpy.data.objects:
+        # Check if the object is a mesh
+        if obj.type == 'MESH':
+            # Select the mesh object
+            obj.select_set(True)
+            # Delete the selected object
+            bpy.ops.object.delete() 
+
 def color_faces_randomly(mesh_object):
     """
     Colors each face of a given mesh object with a random color.
@@ -49,6 +65,10 @@ def create_uv_sphere(location, radius, segments, rings):
     """
     bpy.ops.mesh.primitive_uv_sphere_add(radius=radius, segments=segments, ring_count=rings, location=location)
     return bpy.context.active_object
+
+
+# Reset the scene using cleanup function/s
+cleanup_mesh_objects()
 
 # Parameters for the sphere
 location = (0, 0, 0)
