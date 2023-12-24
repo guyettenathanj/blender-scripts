@@ -44,7 +44,6 @@ def create_uv_sphere(location, radius, segments, rings):
 def select_poles_of_uv_sphere(sphere):
     """
     Selects the top and bottom vertices (poles) of a UV sphere. and leaves it in edit mode.
-    This currently ONLY works if the sphere hasn't been rotated and is lined up perfectly.
 
     :param sphere: The UV sphere object to modify. Must be of type 'MESH'.
     """
@@ -80,7 +79,111 @@ def select_poles_of_uv_sphere(sphere):
 
     # Update the mesh
     bmesh.update_edit_mesh(sphere.data)
+    
+    
+    
+def get_triangular_face_indices(obj):
+    # Ensure the passed object is a Blender Mesh object
+    if obj is None or obj.type != 'MESH':
+        print("The passed object is not a valid mesh.")
+        return []
 
+    # Ensure Blender is in object mode
+    if bpy.context.active_object is not None:
+        bpy.ops.object.mode_set(mode='OBJECT')
+
+    # Make the passed object the active object and select it
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+
+    # Switch to edit mode
+    bpy.ops.object.mode_set(mode='EDIT')
+
+    # Get the mesh data
+    mesh = bmesh.from_edit_mesh(obj.data)
+
+    # Create a collection for indices of triangular faces
+    triangular_face_indices = []
+
+    # Find and store indices of triangular faces
+    for face in mesh.faces:
+        if len(face.verts) == 3:
+            triangular_face_indices.append(face.index)
+
+    # Update the mesh and return to object mode
+    bmesh.update_edit_mesh(obj.data)
+    bpy.ops.object.mode_set(mode='OBJECT')
+
+    return triangular_face_indices
+
+
+
+
+def select_single_face(obj, tri_face_indices, face_index):
+    if not tri_face_indices:
+        print("No triangular face indices available.")
+        return
+
+    if face_index < 0 or face_index >= len(tri_face_indices):
+        print("Invalid face index.")
+        return
+
+    # Ensure Blender is in object mode and object is selected
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+
+    # Switch to edit mode
+    bpy.ops.object.mode_set(mode='EDIT')
+
+    # Get the mesh data
+    mesh_data = bmesh.from_edit_mesh(obj.data)
+
+    # Deselect all faces
+    for face in mesh_data.faces:
+        face.select = False
+
+    # Select the specified face by index
+    for face in mesh_data.faces:
+        if face.index == tri_face_indices[face_index]:
+            face.select = True
+            break
+
+    # Update the mesh
+    bmesh.update_edit_mesh(obj.data)
+    
+    
+def select_multiple_faces(obj, tri_face_indices, face_indices):
+    if not tri_face_indices:
+        print("No triangular face indices available.")
+        return
+
+    # Validate all face indices
+    for face_index in face_indices:
+        if face_index < 0 or face_index >= len(tri_face_indices):
+            print(f"Invalid face index: {face_index}")
+            return
+
+    # Ensure Blender is in object mode and object is selected
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+
+    # Switch to edit mode
+    bpy.ops.object.mode_set(mode='EDIT')
+
+    # Get the mesh data
+    mesh_data = bmesh.from_edit_mesh(obj.data)
+    
+    # Deselect all faces
+    for face in mesh_data.faces:
+        face.select = False
+
+    # Select the specified faces by indices
+    for face in mesh_data.faces:
+        if face.index in [tri_face_indices[i] for i in face_indices]:
+            face.select = True
+
+    # Update the mesh
+    bmesh.update_edit_mesh(obj.data)
 
 
 
@@ -90,11 +193,16 @@ cleanup_mesh_objects()
 # Parameters for the sphere
 location = (0, 0, 0)
 radius = 1
-segments = 20  # Adjust this value for horizontal subdivisions
+segments = 10  # Adjust this value for horizontal subdivisions
 rings = 5    # Adjust this value for vertical subdivisions
-
+    
 # Create a UV sphere
 created_sphere = create_uv_sphere(location, radius, segments, rings)
 
-# Get the poles in edit mode... 
-select_poles_of_uv_sphere(created_sphere)
+tri_face_indices = get_triangular_face_indices(created_sphere)
+
+# times 2 because we do top and bottom alternating
+range_list = [i for i in range(segments * 2)]
+
+# this will select the top and bottom rings of the uv sphere
+select_multiple_faces(created_sphere, tri_face_indices, range_list)
