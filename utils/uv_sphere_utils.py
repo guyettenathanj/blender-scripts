@@ -182,7 +182,25 @@ def rotate_object(obj, x_deg, y_deg, z_deg, use_degrees=True):
     obj.rotation_euler[0] += x_rad
     obj.rotation_euler[1] += y_rad
     obj.rotation_euler[2] += z_rad
+    
+    
 
+# TODO: Take in any arbitrary uv sphere, 
+# and select a given ring in edit mode. 
+# Ring index 0 is the ring closest 
+# to the north_pole_vertex
+def select_ring_from_index(uv_sphere, ring_index, north_pole_vertex):
+    pass
+
+# TODO: Take in any arbitrary uv sphere, 
+# and select a given segment in edit mode. 
+def select_segment_from_index(uv_sphere, segment_index, north_pole_vertex):
+    pass
+
+# TODO: Take in any arbitrary uv sphere, 
+# and select a given face in edit mode.
+def select_face_from_ring_segment_coordinates(uv_sphere, ring_index, segment_index, north_pole_vertex):
+    pass
 
 
 # Reset the scene using cleanup function/s
