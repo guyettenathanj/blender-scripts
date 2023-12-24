@@ -198,7 +198,7 @@ rings = 5    # Adjust this value for vertical subdivisions
 created_sphere = create_uv_sphere(location, radius, segments, rings)
 
 #rotate it, showing that the selection is agnostic to rotations
-rotate_object(created_sphere, 40, 0, 0)
+rotate_object(created_sphere, 10, 0, 0)
 
 tri_face_indices = get_triangular_face_indices(created_sphere)
 
@@ -207,3 +207,10 @@ range_list = [i for i in range(segments * 2)]
 
 # this will select the top and bottom rings of the uv sphere
 select_multiple_faces(created_sphere, tri_face_indices, range_list)
+
+# north_pole = ...
+# south_pole = ...
+
+# whichevere pole vertex is "north" or "south" is arbitrary.
+# we have to force consistency by passing in global constraits,
+# such as assigning "north" to the pole with the highest z coordinate
