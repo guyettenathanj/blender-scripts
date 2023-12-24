@@ -214,3 +214,18 @@ select_multiple_faces(created_sphere, tri_face_indices, range_list)
 # whichevere pole vertex is "north" or "south" is arbitrary.
 # we have to force consistency by passing in global constraits,
 # such as assigning "north" to the pole with the highest z coordinate
+
+# once we have the north and south pole verticies 
+# we can figure out if there is any rotation from 
+# global coordinates. Then we can normalize all future 
+# operations
+
+# so if we want to find the second ring of a 5 ring uv sphere
+# we pick a pole and its first ring verticies.
+
+# Then we find all immediately adjacent verticies to the first 
+# ring, minus the pole vertex. That will be our second ring.
+
+# We can continue this process recursively untill we hit the 
+# opposite pole vertex. This will give us access 
+# to control each ring individually, in some logical order.
