@@ -1,5 +1,6 @@
 import bpy
 import bmesh
+import math
 
 
 def cleanup_mesh_objects():
@@ -40,6 +41,8 @@ def create_uv_sphere(location, radius, segments, rings):
     """
     bpy.ops.mesh.primitive_uv_sphere_add(radius=radius, segments=segments, ring_count=rings, location=location)
     return bpy.context.active_object
+
+
 
 def select_poles_of_uv_sphere(sphere):
     """
@@ -118,40 +121,6 @@ def get_triangular_face_indices(obj):
 
 
 
-
-def select_single_face(obj, tri_face_indices, face_index):
-    if not tri_face_indices:
-        print("No triangular face indices available.")
-        return
-
-    if face_index < 0 or face_index >= len(tri_face_indices):
-        print("Invalid face index.")
-        return
-
-    # Ensure Blender is in object mode and object is selected
-    bpy.context.view_layer.objects.active = obj
-    obj.select_set(True)
-
-    # Switch to edit mode
-    bpy.ops.object.mode_set(mode='EDIT')
-
-    # Get the mesh data
-    mesh_data = bmesh.from_edit_mesh(obj.data)
-
-    # Deselect all faces
-    for face in mesh_data.faces:
-        face.select = False
-
-    # Select the specified face by index
-    for face in mesh_data.faces:
-        if face.index == tri_face_indices[face_index]:
-            face.select = True
-            break
-
-    # Update the mesh
-    bmesh.update_edit_mesh(obj.data)
-    
-    
 def select_multiple_faces(obj, tri_face_indices, face_indices):
     if not tri_face_indices:
         print("No triangular face indices available.")
@@ -184,6 +153,35 @@ def select_multiple_faces(obj, tri_face_indices, face_indices):
 
     # Update the mesh
     bmesh.update_edit_mesh(obj.data)
+    
+    
+
+def rotate_object(obj, x_deg, y_deg, z_deg, use_degrees=True):
+    """
+    Rotates an object by the specified angles along X, Y, and Z axes.
+
+    Parameters:
+    obj (bpy.types.Object): The object to rotate.
+    x_deg (float): The angle to rotate around the X-axis.
+    y_deg (float): The angle to rotate around the Y-axis.
+    z_deg (float): The angle to rotate around the Z-axis.
+    use_degrees (bool): If True, angles are given in degrees; if False, in radians.
+    """
+
+    if use_degrees:
+        # Convert degrees to radians
+        x_rad = math.radians(x_deg)
+        y_rad = math.radians(y_deg)
+        z_rad = math.radians(z_deg)
+    else:
+        x_rad = x_deg
+        y_rad = y_deg
+        z_rad = z_deg
+
+    # Apply the rotation
+    obj.rotation_euler[0] += x_rad
+    obj.rotation_euler[1] += y_rad
+    obj.rotation_euler[2] += z_rad
 
 
 
@@ -198,6 +196,9 @@ rings = 5    # Adjust this value for vertical subdivisions
     
 # Create a UV sphere
 created_sphere = create_uv_sphere(location, radius, segments, rings)
+
+#rotate it, showing that the selection is agnostic to rotations
+rotate_object(created_sphere, 40, 0, 0)
 
 tri_face_indices = get_triangular_face_indices(created_sphere)
 
